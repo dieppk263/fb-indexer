@@ -14,3 +14,5 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/view/{id}', 'HomeController@index')->name('view_post');

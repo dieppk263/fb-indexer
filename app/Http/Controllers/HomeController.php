@@ -6,7 +6,7 @@ use App\Config;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index($id)
     {
         $filters = [
             'cho thuê',
@@ -14,7 +14,7 @@ class HomeController extends Controller
         ];
 
         $posts = \DB::table('posts');
-        $posts->where('id', '>', Config::receive('last_read_post'));
+        $posts->where('id', '>=', $id);
         foreach ($filters as $filter) {
             $posts->where('message', 'LIKE', '%' . \utf8_encode($filter) . '%');
         }
@@ -28,6 +28,6 @@ class HomeController extends Controller
             ]);
         }
 
-        return $result;
+        return \view('view', \compact('result'));
     }
 }

@@ -55,6 +55,7 @@ class PushNotifications extends Command
         }
         $result = $posts->get();
 
+        $firstItem = $result->sortBy('id')->first();
         $lastItem = $result->sortBy('id')->last();
 
         if (isset($lastItem->id)) {
@@ -63,21 +64,21 @@ class PushNotifications extends Command
             ]);
         }
 
-        foreach ($result as $post) {
+        if ($result->isNotEmpty()) {
             $oneSingalNotification = new Notification($this->oneSignal);
             $notificationData = [
                 "included_segments" => ["All"],
                 "contents"          => [
-                    "vi" => substr(utf8_decode($post->message), 0, 128),
+                    "en" => 'Có ' . $result->count() . ' bài viết phù hợp với yêu cầu của bạn',
                 ],
                 "headings"          => [
-                    "vi" => 'Có người cho thuê phòng trọ mới',
+                    "en" => 'Có người cho thuê phòng trọ mới',
                 ],
                 "web_buttons"       => [
                     [
                         "id"   => "readmore-button",
-                        "text" => "Read more",
-                        "url"  => "https://www.facebook.com/" . $post->post_id,
+                        "text" => "Xem chi tiết",
+                        "url"  => \route('view_post', $firstItem->id),
                     ],
                 ],
                 "isChromeWeb"       => true,
