@@ -55,8 +55,7 @@ class IndexGroupPosts extends Command
             \Log::info('https://graph.facebook.com/v3.0/' . $group->group_id . '/feed', [
                 'query' => [
                     'since'        => (!empty($group->last_post_updated)) ? $group->last_post_updated : Config::receive('default_updated_time'),
-                    'limit'        => 100,
-                    'access_token' => Config::receive('access_token'),
+                    'limit'        => 100
                 ],
             ]);
 
