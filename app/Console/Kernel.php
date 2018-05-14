@@ -27,6 +27,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('app:index_group_posts')->everyFiveMinutes();
+        $schedule->command('app:push_notifications')->everyTenMinutes();
     }
 
     /**
