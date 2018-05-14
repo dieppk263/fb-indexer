@@ -14,22 +14,22 @@ class InitApp extends Migration
     public function up()
     {
         Schema::create('configs', function(Blueprint $table) {
-            $table->string('key', 50);
+            $table->string('key', 50)->unu;
             $table->string('value', 255);
         });
 
         Schema::create('groups', function(Blueprint $table) {
             $table->increments('id');
             $table->string('group_id');
-            $table->dateTime('last_post_updated');
-            $table->dateTime('last_updated');
+            $table->dateTime('last_post_updated')->nullable();
+            $table->dateTime('last_updated')->nullable();
         });
 
         Schema::create('posts', function(Blueprint $table) {
             $table->increments('id');
             $table->string('post_id');
-            $table->text('message');
-            $table->text('story');
+            $table->text('message')->nullable();
+            $table->text('story')->nullable();
             $table->dateTime('updated_time');
             $table->string('group_id');
         });
