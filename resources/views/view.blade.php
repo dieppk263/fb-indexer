@@ -15,7 +15,7 @@
         <div class="card">
             <div class="card-header">{{ $post->updated_time }}</div>
             <div class="card-body">
-                <p class="card-text">{{ utf8_decode($post->message) }}</p>
+                <p class="card-text"><pre>{{ utf8_decode($post->message) }}</pre></p>
                 <a href="https://www.facebook.com/{{ $post->post_id }}" target="_blank" class="btn btn-primary btn-sm">Xem bài viết</a>
             </div>
         </div>
