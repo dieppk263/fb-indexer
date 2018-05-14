@@ -68,10 +68,10 @@ class PushNotifications extends Command
             $notificationData = [
                 "included_segments" => ["All"],
                 "contents"          => [
-                    "en" => substr(utf8_decode($post->message), 0, 128),
+                    "vi" => substr(utf8_decode($post->message), 0, 128),
                 ],
                 "headings"          => [
-                    "en" => 'Có người cho thuê phòng trọ mới',
+                    "vi" => 'Có người cho thuê phòng trọ mới',
                 ],
                 "web_buttons"       => [
                     [
