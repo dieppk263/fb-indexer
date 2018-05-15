@@ -46,16 +46,9 @@ class IndexGroupPosts extends Command
             $client = new Client();
             $response = $client->request('GET', 'https://graph.facebook.com/v3.0/' . $group->group_id . '/feed', [
                 'query' => [
-                    'since'        => (!empty($group->last_post_updated)) ? $group->last_post_updated : Config::receive('default_updated_time'),
+                    'since'        => (!empty($group->last_post_updated)) ? $group->last_post_updated : date('Y-m-d H:i:s', strtotime(Config::receive('default_updated_time'))),
                     'limit'        => 100,
                     'access_token' => Config::receive('access_token'),
-                ],
-            ]);
-
-            \Log::info('https://graph.facebook.com/v3.0/' . $group->group_id . '/feed', [
-                'query' => [
-                    'since' => (!empty($group->last_post_updated)) ? $group->last_post_updated : Config::receive('default_updated_time'),
-                    'limit' => 100,
                 ],
             ]);
 
