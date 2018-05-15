@@ -14,8 +14,10 @@ class InitApp extends Migration
     public function up()
     {
         Schema::create('configs', function(Blueprint $table) {
-            $table->string('key', 50)->unu;
+            $table->string('key', 50);
             $table->string('value', 255);
+
+            $table->unique('key');
         });
 
         Schema::create('groups', function(Blueprint $table) {
@@ -23,6 +25,8 @@ class InitApp extends Migration
             $table->string('group_id');
             $table->dateTime('last_post_updated')->nullable();
             $table->dateTime('last_updated')->nullable();
+
+            $table->unique('group_id');
         });
 
         Schema::create('posts', function(Blueprint $table) {

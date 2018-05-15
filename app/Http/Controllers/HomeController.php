@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Config;
+use App\Group;
+use GuzzleHttp\Client;
 
 class HomeController extends Controller
 {
@@ -29,5 +31,34 @@ class HomeController extends Controller
         }
 
         return \view('view', \compact('result'));
+    }
+
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function myGroups()
+    {
+        $client = new Client();
+        $response = $client->request('GET', 'https://graph.facebook.com/v3.0/me/groups', [
+            'query' => [
+                'limit'        => 1000,
+                'access_token' => Config::receive('access_token'),
+            ],
+        ]);
+
+        if ($response->getStatusCode() == 200) {
+            $result = json_decode($response->getBody())->data;
+
+            foreach ($result as $group) {
+                if (strpos(strtolower($group->name), 'trọ')) {
+                    $check = Group::where('group_id', $group->id)->get();
+                    if ($check->isEmpty()) {
+                        $add = new Group();
+                        $add->group_id = $group->id;
+                        $add->save();
+                    }
+                }
+            }
+        }
     }
 }

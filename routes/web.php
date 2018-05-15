@@ -16,3 +16,4 @@ Route::get('/', function () {
 });
 
 Route::get('/view/{id}', 'HomeController@index')->name('view_post');
+Route::get('add_groups', 'HomeController@myGroups');
