@@ -41,13 +41,13 @@ class MergeServer extends Command
         // Get job
         $jobs = $db->where('status', 0)->get();
         foreach ($jobs as $job) {
-            if (\date('Y-m-d H:i:00', \time()) == $job['time']) {
+            if (\date('Y-m-d H:i:00', \time()) == $job->time) {
                 // Update status
                 $db->where('id', $job->id)->update(['status' => 1]);
 
                 // Execute
                 $query = "?game={$job->game}&from={$job->from}&from_type={$job->from_type}&to={$job->to}&backup={$job->backup}";
-                \file_get_contents('http://' . $job['ip'] . '/merge/merge.php' . $query);
+                \file_get_contents('http://' . $job->ip . '/merge/merge.php' . $query);
             }
         }
     }
