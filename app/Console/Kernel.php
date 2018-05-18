@@ -3,6 +3,8 @@
 namespace App\Console;
 
 use App\Console\Commands\IndexGroupPosts;
+use App\Console\Commands\MergeServer;
+use App\Console\Commands\PushNotifications;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -15,6 +17,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         IndexGroupPosts::class,
+        PushNotifications::class,
+        MergeServer::class,
     ];
 
     /**
