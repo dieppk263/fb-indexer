@@ -40,6 +40,7 @@ class MergeServer extends Command
         $db = \DB::table('merge');
         // Get job
         $jobs = $db->where('status', 0)->get();
+        \Log::info('Merge server data', $jobs->toArray());
         foreach ($jobs as $job) {
             \Log::info('Merge Server Date Condition: ' . (\date('Y-m-d H:i:00', \time()) == $job->time) ? 'true' : 'false');
             if (\date('Y-m-d H:i:00', \time()) == $job->time) {
