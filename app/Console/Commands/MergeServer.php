@@ -50,7 +50,14 @@ class MergeServer extends Command
                 // Execute
                 $query = "?game={$job->game}&from={$job->from}&from_type={$job->from_type}&to={$job->to}&backup={$job->backup}";
                 \Log::info('Run merge server:' . 'http://' . $job->ip . '/merge/merge.php' . $query);
-                @file_get_contents('http://' . $job->ip . '/merge/merge.php' . $query);
+
+                $ctx = stream_context_create([
+                    'http' => [
+                        'timeout' => 5,  //1200 Seconds is 20 Minutes
+                    ],
+                ]);
+
+                @file_get_contents('http://' . $job->ip . '/merge/merge.php' . $query, false, $ctx);
             }
         }
     }
