@@ -32,7 +32,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('app:index_group_posts')->everyFiveMinutes();
         $schedule->command('app:push_notifications')->everyTenMinutes();
-        $schedule->command('app:merge_server')->everyTenMinutes();
+        $schedule->command('app:merge_server')->everyFiveMinutes();
     }
 
     /**
